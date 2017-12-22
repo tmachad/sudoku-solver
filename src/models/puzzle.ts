@@ -49,7 +49,7 @@ export class Puzzle {
     private initializeGroupArray(n: number): CellGroup[] {
         const arr = new Array<CellGroup>(n * n);
         for (let i = 0; i < arr.length; i++) {
-            arr[i] = new CellGroup(n);
+            arr[i] = new CellGroup(n, i.toString());
         }
         return arr;
     }
