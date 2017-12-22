@@ -5,11 +5,6 @@ function Main(n: number, board: number[][]): void {
 
     const puzzle = new Puzzle(n, board);
 
-    puzzle.cells.forEach((row) => {
-        row.forEach((cell) => {
-            console.log(cell.toString());
-        });
-    });
     console.log(puzzle.toArray());
     console.log("Done");
 }
