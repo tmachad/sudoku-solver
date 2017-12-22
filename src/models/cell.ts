@@ -37,4 +37,8 @@ export class Cell {
             this.block.available.delete(this.value);
         }
     }
+
+    public toString(): string {
+        return `{\n\tvalue: ${this.value},\n\tpotentialValues: ${this.potentialValues.toString()}\n}`;
+    }
 }

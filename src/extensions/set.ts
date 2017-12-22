@@ -5,6 +5,7 @@ declare global {
     interface Set<T> {
         intersection(other: Set<T>): Set<T>;
         union(other: Set<T>): Set<T>;
+        toString(): string;
     }
 }
 
@@ -28,3 +29,17 @@ Set.prototype.union = function <T>(other: Set<T>): Set<T> {
 
     return result;
 };
+
+Set.prototype.toString = function (): string {
+    let str = "[ ";
+    this.forEach((val) => {
+        str = str.concat(`${val}, `);
+    });
+    if (str.length > 2) {
+        str = str.substr(0, str.length - 2);
+    } else {
+        str = str.substr(0, str.length - 1);
+    }
+    str = str.concat(" ]");
+    return str;
+}
