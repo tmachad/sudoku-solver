@@ -31,7 +31,6 @@ export class Cell {
     public setValue(n: number): boolean {
         const success = n === 0
             || this.potentialValues.has(n);
-        // console.log(`Setting value of ${this.name} to ${n} from ${this.value} ${success ? 'succeeded' : 'failed' }`);
         if (success) {
             if (this.value !== 0) {
                 this.row.addAvailable(this.value);
@@ -53,10 +52,9 @@ export class Cell {
     }
 
     public addPotentialValue(n: number): boolean {
-        const success = this.row.getAvailable().has(n) 
-            && this.column.getAvailable().has(n) 
+        const success = this.row.getAvailable().has(n)
+            && this.column.getAvailable().has(n)
             && this.block.getAvailable().has(n);
-            // console.log(`Adding ${n} to ${this.name} potential values ${success ? 'succeeded' : 'failed' }`);
         if (success) {
             this.potentialValues.add(n);
         }
@@ -66,8 +64,17 @@ export class Cell {
 
     public removePotentialValue(n: number): boolean {
         const success = this.potentialValues.delete(n);
-        // console.log(`Remove ${n} from ${this.name} potential values ${success ? 'succeeded' : 'failed' }`);
         return success;
+    }
+
+    public getPotentialValues(): number[] {
+        const result = new Array<number>(this.potentialValues.values.length);
+        this.potentialValues.forEach((val) => result.push(val));
+        return result;
+    }
+
+    public potentialValueCount(): number {
+        return this.potentialValues.size;
     }
 
     public toString(): string {

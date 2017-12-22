@@ -30,7 +30,7 @@ Set.prototype.union = function <T>(other: Set<T>): Set<T> {
     return result;
 };
 
-Set.prototype.toString = function (): string {
+Set.prototype.toString = function(): string {
     let str = "[ ";
     this.forEach((val) => {
         str = str.concat(`${val}, `);
@@ -42,4 +42,4 @@ Set.prototype.toString = function (): string {
     }
     str = str.concat(" ]");
     return str;
-}
+};

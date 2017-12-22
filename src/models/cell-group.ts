@@ -20,7 +20,6 @@ export class CellGroup {
 
     public removeAvailable(n: number): boolean {
         const success = this.available.delete(n);
-        // console.log(`Deleting ${n} from group ${this.name} available values ${success ? 'succeeded' : 'failed' }`);
         if (success) {
             this.cells.forEach((cell) => cell.removePotentialValue(n));
         }
@@ -29,7 +28,6 @@ export class CellGroup {
 
     public addAvailable(n: number): boolean {
         const success = !this.available.has(n);
-        // console.log(`Adding ${n} to group ${this.name} available values ${success ? 'succeeded' : 'failed' }`);
         if (success) {
             this.available.add(n);
             this.cells.forEach((cell) => cell.addPotentialValue(n));
