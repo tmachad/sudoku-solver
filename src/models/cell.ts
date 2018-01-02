@@ -9,7 +9,7 @@ export class Cell {
     public readonly name: string;
 
     private value: number;
-    private readonly potentialValues: Set<PotentialValue>;
+    private readonly potentialValues: Set<number>;
 
     constructor(row: CellGroup, column: CellGroup, block: CellGroup, name: string) {
         this.value = 0;
@@ -20,11 +20,9 @@ export class Cell {
         this.block = block;
         this.block.cells.push(this);
         this.potentialValues = new Set();
-        this.potentialValues = new Set<PotentialValue>();
-        const potVals = row.getAvailable()
+        this.potentialValues = row.getAvailable()
         .intersection(column.getAvailable())
         .intersection(block.getAvailable());
-        potVals.forEach((val) => this.potentialValues.add(new PotentialValue(val)));
 
         this.name = name;
     }
@@ -35,13 +33,13 @@ export class Cell {
 
     public setValue(n: number): boolean {
         const success = n === 0
-            || this.potentialValues.has((item) => item.value === n);
+            || this.potentialValues.has(n);
         if (success) {
             if (this.value !== 0) {
                 this.row.addAvailable(this.value);
                 this.column.addAvailable(this.value);
                 this.block.addAvailable(this.value);
-                this.potentialValues.add(new PotentialValue(this.value));
+                this.potentialValues.add(this.value);
             }
 
             this.value = n;
@@ -50,7 +48,7 @@ export class Cell {
                 this.row.removeAvailable(this.value);
                 this.column.removeAvailable(this.value);
                 this.block.removeAvailable(this.value);
-                this.potentialValues.delete((item) => item.value === this.value);
+                this.potentialValues.delete(this.value);
             }
         }
         return success;
@@ -61,20 +59,20 @@ export class Cell {
             && this.column.getAvailable().has(n)
             && this.block.getAvailable().has(n);
         if (success) {
-            this.potentialValues.add(new PotentialValue(n));
+            this.potentialValues.add(n);
         }
 
         return success;
     }
 
     public removePotentialValue(n: number): boolean {
-        const success = this.potentialValues.delete((item) => item.value === n);
+        const success = this.potentialValues.delete(n);
         return success;
     }
 
     public getPotentialValues(): number[] {
-        const result = new Array<number>(this.potentialValues.values.length);
-        this.potentialValues.forEach((item) => result.push(item.value));
+        const result = new Array<number>();
+        this.potentialValues.forEach((val) => result.push(val));
         return result;
     }
 
