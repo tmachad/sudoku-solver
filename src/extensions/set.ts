@@ -9,6 +9,7 @@ declare global {
         where(predicate: (item: T) => boolean): Set<T>;
         count(predicate: (item: T) => boolean): number;
         has(predicate: (item: T) => boolean): boolean;
+        delete(predicate: (item: T) => boolean): boolean;
     }
 }
 
@@ -79,4 +80,20 @@ Set.prototype.has = function <T>(predicate: (item: T) => boolean): boolean {
     });
 
     return result;
+}
+
+Set.prototype.delete = function<T>(predicate: (item: T) => boolean): boolean {
+    let obj: T = null;
+
+    this.forEach((val) => {
+        if (obj === null && predicate(obj)) {
+            obj = val;
+        }
+    });
+
+    if (obj !== null) {
+        return this.delete(obj);
+    } else {
+        return false;
+    }
 }
