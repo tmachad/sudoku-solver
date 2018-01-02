@@ -7,9 +7,9 @@ declare global {
         union(other: Set<T>): Set<T>;
         toString(): string;
         where(predicate: (item: T) => boolean): Set<T>;
-        count(predicate: (item: T) => boolean): number;
-        has(predicate: (item: T) => boolean): boolean;
-        delete(predicate: (item: T) => boolean): boolean;
+        countWhere(predicate: (item: T) => boolean): number;
+        hasWhere(predicate: (item: T) => boolean): boolean;
+        deleteWhere(predicate: (item: T) => boolean): boolean;
     }
 }
 
@@ -60,7 +60,7 @@ Set.prototype.where = function <T>(predicate: (item: T) => boolean): Set<T> {
     return result;
 };
 
-Set.prototype.count = function <T>(predicate: (item: T) => boolean): number {
+Set.prototype.countWhere = function <T>(predicate: (item: T) => boolean): number {
     let counter = 0;
 
     this.forEach((val) => {
@@ -72,7 +72,7 @@ Set.prototype.count = function <T>(predicate: (item: T) => boolean): number {
     return counter;
 };
 
-Set.prototype.has = function <T>(predicate: (item: T) => boolean): boolean {
+Set.prototype.hasWhere = function <T>(predicate: (item: T) => boolean): boolean {
     let result = false;
 
     this.forEach((val) => {
@@ -82,7 +82,7 @@ Set.prototype.has = function <T>(predicate: (item: T) => boolean): boolean {
     return result;
 };
 
-Set.prototype.delete = function<T>(predicate: (item: T) => boolean): boolean {
+Set.prototype.deleteWhere = function<T>(predicate: (item: T) => boolean): boolean {
     let obj: T = null;
 
     this.forEach((val) => {

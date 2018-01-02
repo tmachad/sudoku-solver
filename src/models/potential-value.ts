@@ -6,4 +6,8 @@ export class PotentialValue {
         this.value = value;
         this.tried = false;
     }
+
+    public toString(): string {
+        return `{ value: ${this.value}, tried: ${this.tried} }`;
+    }
 }
