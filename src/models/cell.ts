@@ -1,5 +1,6 @@
 import "../extensions/set";
 import { CellGroup } from "./cell-group";
+import { PotentialValue } from "./potential-value";
 
 export class Cell {
     public readonly row: CellGroup;
@@ -18,9 +19,11 @@ export class Cell {
         this.column.cells.push(this);
         this.block = block;
         this.block.cells.push(this);
+        this.potentialValues = new Set();
         this.potentialValues = row.getAvailable()
         .intersection(column.getAvailable())
         .intersection(block.getAvailable());
+
         this.name = name;
     }
 

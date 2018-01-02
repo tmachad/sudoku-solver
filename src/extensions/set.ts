@@ -6,6 +6,9 @@ declare global {
         intersection(other: Set<T>): Set<T>;
         union(other: Set<T>): Set<T>;
         toString(): string;
+        where(predicate: (item: T) => boolean): Set<T>;
+        count(predicate: (item: T) => boolean): number;
+        has(predicate: (item: T) => boolean): boolean;
     }
 }
 
@@ -43,3 +46,37 @@ Set.prototype.toString = function(): string {
     str = str.concat(" ]");
     return str;
 };
+
+Set.prototype.where = function <T>(predicate: (item: T) => boolean): Set<T> {
+    const result = new Set<T>();
+
+    this.forEach((val) => {
+        if (predicate(val)) {
+            result.add(val);
+        }
+    });
+
+    return result;
+}
+
+Set.prototype.count = function <T>(predicate: (item: T) => boolean): number {
+    let counter = 0;
+
+    this.forEach((val) => {
+        if (predicate(val)) {
+            counter++;
+        }
+    });
+
+    return counter;
+}
+
+Set.prototype.has = function <T>(predicate: (item: T) => boolean): boolean {
+    let result = false;
+
+    this.forEach((val) => {
+        result = result || predicate(val);
+    });
+
+    return result;
+}
