@@ -58,7 +58,7 @@ Set.prototype.where = function <T>(predicate: (item: T) => boolean): Set<T> {
     });
 
     return result;
-}
+};
 
 Set.prototype.count = function <T>(predicate: (item: T) => boolean): number {
     let counter = 0;
@@ -70,7 +70,7 @@ Set.prototype.count = function <T>(predicate: (item: T) => boolean): number {
     });
 
     return counter;
-}
+};
 
 Set.prototype.has = function <T>(predicate: (item: T) => boolean): boolean {
     let result = false;
@@ -80,7 +80,7 @@ Set.prototype.has = function <T>(predicate: (item: T) => boolean): boolean {
     });
 
     return result;
-}
+};
 
 Set.prototype.delete = function<T>(predicate: (item: T) => boolean): boolean {
     let obj: T = null;
@@ -96,4 +96,4 @@ Set.prototype.delete = function<T>(predicate: (item: T) => boolean): boolean {
     } else {
         return false;
     }
-}
+};
