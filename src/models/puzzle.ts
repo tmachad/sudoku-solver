@@ -75,10 +75,7 @@ export class Puzzle {
                                     this.unassigned.add(record.cell);
                                 } else {
                                     record.cell.setValue(0);
-                                    const nextValue = record.getFirstUntried();
-                                    record.chosenValue = nextValue.value;
-                                    nextValue.tried = true;
-                                    record.cell.setValue(nextValue.value);
+                                    record.chooseFirstUntried();
                                     historyStack.push(record);
                                     rewind = false;
                                 }
@@ -88,21 +85,15 @@ export class Puzzle {
                         } else if (cell.potentialValueCount() === 1) {
                             // Cell only has one possible value, so take that
                             const record = new HistoryRecord(cell);
+                            record.chooseFirstUntried();
                             historyStack.push(record);
-                            const chosenValue = record.getFirstUntried();
-                            record.chosenValue = chosenValue.value;
-                            chosenValue.tried = true;
-                            cell.setValue(chosenValue.value);
                             this.unassigned.delete(cell);
                             breakInner = true;
                         } else if (startGuessing) {
                             // Cell has multiple possible values, so try the first untried one
                             const record = new HistoryRecord(cell);
+                            record.chooseFirstUntried();
                             historyStack.push(record);
-                            const chosenValue = record.getFirstUntried();
-                            record.chosenValue = chosenValue.value;
-                            chosenValue.tried = true;
-                            cell.setValue(chosenValue.value);
                             this.unassigned.delete(cell);
                             breakInner = true;
                         }

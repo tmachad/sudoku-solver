@@ -28,4 +28,18 @@ export class HistoryRecord {
     public untriedCount(): number {
         return this.potentialValues.countWhere((item) => item.tried === false);
     }
+
+    public chooseFirstUntried(): boolean {
+        let success = false;
+        const firstUntried = this.getFirstUntried();
+
+        if (firstUntried !== null) {
+            success = true;
+            this.chosenValue = firstUntried.value;
+            firstUntried.tried = true;
+            this.cell.setValue(this.chosenValue);
+        }
+
+        return success;
+    }
 }
